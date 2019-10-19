@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surfaceair/pages/home.dart';
+import 'package:surfaceair/pages/test.dart';
 
 void main() {
   runApp(
@@ -8,7 +9,8 @@ void main() {
       debugShowMaterialGrid: false,
       home: HomePage(),
       routes: <String, WidgetBuilder>{
-        '/home': (context)=> HomePage()
+        '/home': (context)=> HomePage(),
+        '/test':(context)=> MeasuresPage(),
       },)
   );
 }
