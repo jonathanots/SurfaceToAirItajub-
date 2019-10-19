@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:surfaceair/models/localModel.dart';
 import 'dart:async';
+import 'package:geolocator/geolocator.dart';
+import 'package:surfaceair/repository/measures.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,54 +11,189 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var geolocator = Geolocator();
+  Position uLocation;
+  List<LocalModel> resultList = [];
+  TextEditingController _locationController = TextEditingController();
 
   Completer<GoogleMapController> _controller = Completer();
+   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+  CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(38.883056, -77.016389),
+    zoom: 15,
   );
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+
+  void _initialize()async{
+    Measures measure = Measures();
+    var result =  await measure.getMeasures();
+    setState(() {
+      resultList = result; 
+    });
+    print(resultList.length);
+    int i = 0;
+    for(var ans in resultList){
+      i += 1;
+      _add(ans.latitude, ans.longitude, i.toString());
+    }
+
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_initialPosition));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getLocation();
+    _initialize();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height*0.8,
-            width: MediaQuery.of(context).size.width,
-            child: GoogleMap(
-              mapType: MapType.hybrid,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
+    return SafeArea(
+          child: new Scaffold(
+        body: ListView(
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height*0.965,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height*0.8,
+                        width: MediaQuery.of(context).size.width,
+                        child: GoogleMap(
+                          scrollGesturesEnabled: true,
+                          rotateGesturesEnabled: true,
+                          zoomGesturesEnabled: true,
+                          myLocationEnabled: true,
+                          myLocationButtonEnabled: true,
+                          markers: Set<Marker>.of(markers.values),
+                          mapType: MapType.normal,
+                          initialCameraPosition: _initialPosition,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          },
+                        ),
+                      ),
+                      Positioned(
+                        top: MediaQuery.of(context).size.height*0.075,
+                        right: 20,
+                        left: 20,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
+                          height: MediaQuery.of(context).size.height*0.09,
+                          width: MediaQuery.of(context).size.width*0.9,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: TextField(
+                                  controller: _locationController,
+                                  style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Gibson",
+                                  fontSize: 15.0,
+                                  fontStyle: FontStyle.normal),
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.search),
+                                    labelText: "Local",
+                                    labelStyle: TextStyle(color: Colors.grey),
+                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue))
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                    ],
+                  ),
+                  Visibility(
+                    visible: true,
+                    maintainSize: false,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(child: Text("Ruad dsanudisabdsa dsadsa",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0
+                            ),
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: RaisedButton(
+                      onPressed: (){},
+                      color: Colors.cyan,
+                      child: Container(child: Text("SELECIONAR", 
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0
+                        ),
+                      )),
+                      ),
+                    )
+                  )
+                ],
+              ),
             ),
-          ),
-          RaisedButton(
-            onPressed: ()=>Navigator.pushNamed(context, '/test'),
-            color: Colors.black,
-            child: Text("dsnauidbsauibdsai"),
-          )
-      
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+        
+          ], 
+        ),
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  void _add(double lat, double long, String id) {
+    var markerIdVal = id;
+    final MarkerId markerId = MarkerId(markerIdVal);
+
+    // creating a new MARKER
+    final Marker marker = Marker(
+      markerId: markerId,
+      position: LatLng(lat, long),
+      icon: BitmapDescriptor.defaultMarker,
+      infoWindow: InfoWindow(title: markerIdVal),
+      onTap: () {},
+    );
+
+    setState(() {
+      // adding a new marker to map
+      markers[markerId] = marker;
+    });
+  }
+
+
+  void _getLocation() async {
+    var currentLocation;
+    try {
+      currentLocation = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+    } catch (e) {
+      currentLocation = null;
+    }
+    setState(() {
+      uLocation = currentLocation;
+      _initialPosition = CameraPosition(
+      target: LatLng(uLocation.latitude, uLocation.longitude),
+      zoom: 15,
+      );
+    });
   }
 }
