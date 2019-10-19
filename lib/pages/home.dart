@@ -25,16 +25,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: GoogleMap(
-          mapType: MapType.hybrid,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height*0.8,
+            width: MediaQuery.of(context).size.width,
+            child: GoogleMap(
+              mapType: MapType.hybrid,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+            ),
+          ),
+          RaisedButton(
+            onPressed: ()=>Navigator.pushNamed(context, '/test'),
+            color: Colors.black,
+            child: Text("dsnauidbsauibdsai"),
+          )
+      
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
