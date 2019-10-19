@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "504112822517",
+    "firebase_url": "https://surfacetoair.firebaseio.com",
+    "project_id": "surfacetoair",
+    "storage_bucket": "surfacetoair.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504112822517:android:6ed2d18da5027a7d6a2dbc",
+        "android_client_info": {
+          "package_name": "com.otsdev.surfaceair"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504112822517-3cfkfl8je3onjr968qvm5f2ekt12sk1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0CotA3XQKzoJ1AjRb8EvW6p5uNOOE-no"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504112822517-3cfkfl8je3onjr968qvm5f2ekt12sk1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
