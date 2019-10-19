@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surfaceair/pages/home.dart';
+import 'package:surfaceair/pages/bottomNavigation.dart';
 import 'package:surfaceair/pages/test.dart';
 
 void main() {
@@ -7,8 +8,9 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
-      home: HomePage(),
+      home: BottomNavigation(),
       routes: <String, WidgetBuilder>{
+        '/bottomNavigation':(context)=> BottomNavigation(),
         '/home': (context)=> HomePage(),
         '/test':(context)=> MeasuresPage(),
       },)
