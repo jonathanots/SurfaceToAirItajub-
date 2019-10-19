@@ -10,7 +10,6 @@ class _MeasuresPageState extends State<MeasuresPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Measures measure = Measures();
     measure.getMeasures();
