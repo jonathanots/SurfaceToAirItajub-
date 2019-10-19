@@ -59,14 +59,14 @@ class _HomePageState extends State<HomePage> {
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height*0.965,
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
                       Container(
-                        height: MediaQuery.of(context).size.height*0.8,
+                        height: MediaQuery.of(context).size.height*0.765,
                         width: MediaQuery.of(context).size.width,
                         child: GoogleMap(
                           scrollGesturesEnabled: true,
@@ -139,8 +139,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     child: Container(
+                      alignment: Alignment.topCenter,
                       width: MediaQuery.of(context).size.width,
                       child: RaisedButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       onPressed: (){},
                       color: Colors.cyan,
                       child: Container(child: Text("SELECIONAR", 
