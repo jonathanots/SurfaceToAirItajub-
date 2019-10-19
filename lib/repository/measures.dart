@@ -5,8 +5,8 @@ import 'package:surfaceair/models/measureModel.dart';
 
 class Measures{
   
-  Future getMeasures()async{
-    var url = "https://api.openaq.org/v1/latest?limit=10000";
+  Future<List<LocalModel>> getMeasures()async{
+    var url = "https://api.openaq.org/v1/latest?limit=100";
     List<LocalModel> localList = [];
     
     try{
@@ -33,8 +33,8 @@ class Measures{
       print("Error: $error");
     }
     print(localList.length);
-    //print(localList[0].measures.length);
 
+    return localList;
   }
 
 }
