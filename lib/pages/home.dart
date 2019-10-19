@@ -8,6 +8,8 @@ import 'package:surfaceair/repository/measures.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
+  
+    const HomePage({Key key}) : super(key: key);
 }
 
 class _HomePageState extends State<HomePage> {
