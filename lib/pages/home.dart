@@ -312,10 +312,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("MP10", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "MP10");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("MP10", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
@@ -324,10 +329,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("MP2.5", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "MP2.5");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("MP2.5", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
@@ -336,10 +346,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("O3", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "O3");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("O3", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
@@ -348,10 +363,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("CO", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "CO");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("CO", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
@@ -360,10 +380,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("NO2", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "NO2");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("NO2", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
@@ -372,14 +397,36 @@ class _HomePageState extends State<HomePage> {
                   ),
                   TableRow(
                     children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height*0.07,
-                        child: Text("SO2", textAlign: TextAlign.center,)),
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "SO2");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("SO2", textAlign: TextAlign.center,)),
+                      ),
                       Container(
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height*0.07,
                         child: Text("${city.so2}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          dialogPoluentes(context, "SO2");
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height*0.07,
+                          child: Text("Índice", textAlign: TextAlign.center,)),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.aqi}", textAlign: TextAlign.center,)),
                     ]
                   ),
                 ],
@@ -417,6 +464,63 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Marcador verde informa que a qualidade do ar é ótima.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.green),
+                    ),
+                    Text("Marcador amarelo informa que a qualidade do ar é boa.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.yellow),
+                    ),
+                    Text("Marcador vermelho informa que a qualidade do ar é ruim.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    Text("Marcador violeta informa que a qualidade do ar é muito ruim.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.purple),
+                    ),
+                    Text("Marcador rosa informa que a qualidade do ar é muito perigosa.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.pink),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          RaisedButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            color: Colors.cyan,
+            textColor: Colors.white,
+            onPressed: () => Navigator.pop(context),
+            child: Text("Voltar"),
+          ) 
+        ],
+      )
+    );
+  }
+
+  void dialogPoluentes(context, String poluente){
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text("Informações:", textAlign: TextAlign.center,),
+        titleTextStyle: TextStyle(fontSize: 18, color: Colors.blue, fontWeight: FontWeight.bold),
+        content: Container(
+          height: MediaQuery.of(context).size.height*0.5,
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height*0.5,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text("Marcador verde informa que a qualidade do ar é ótima.", 
                       textAlign: TextAlign.justify,
