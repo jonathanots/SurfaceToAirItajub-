@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surfaceair/pages/home.dart';
 import 'package:surfaceair/pages/bottomNavigation.dart';
-import 'package:surfaceair/pages/test.dart';
+import 'package:surfaceair/pages/measures.dart';
 
 void main() {
   runApp(
@@ -12,7 +12,7 @@ void main() {
       routes: <String, WidgetBuilder>{
         '/bottomNavigation':(context)=> BottomNavigation(),
         '/home': (context)=> HomePage(),
-        '/test':(context)=> MeasuresPage(),
+        '/measures':(context)=> MeasuresPage(),
       },)
   );
 }
