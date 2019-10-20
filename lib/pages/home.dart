@@ -128,6 +128,17 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         )),
+                        Positioned(
+                          bottom: MediaQuery.of(context).size.height*0.02,
+                          right: MediaQuery.of(context).size.width*0.25,
+                          child: IconButton(
+                            tooltip: "Informações",
+                            icon: Icon(Icons.info, color: Colors.blue, size: 40),
+                            onPressed: (){
+                              dialogInfo(context);
+                            },
+                          ),
+                        )
                     ],
                   ),
                   Visibility(
@@ -225,7 +236,7 @@ class _HomePageState extends State<HomePage> {
       icon: bitmap,
       infoWindow: InfoWindow(title: " Índice da qualidade do ar: $markerIdVal"),
       onTap: () {
-
+        dialogDetails(context, city);
       },
     );
 
@@ -262,6 +273,185 @@ class _HomePageState extends State<HomePage> {
             onPressed: () => Navigator.pop(context),
             child: Text("Voltar"),
           )
+        ],
+      )
+    );
+  }
+
+  void dialogDetails(context, CityModel city){
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text("Local: ${city.city}", textAlign: TextAlign.justify,),
+        titleTextStyle: TextStyle(fontSize: 16, color: Colors.black),
+        content: Container(
+          height: MediaQuery.of(context).size.height*0.5,
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            children: <Widget>[
+              Table(
+                border: TableBorder.all(),
+                columnWidths: {1: FractionColumnWidth(.5)},
+                defaultColumnWidth: FlexColumnWidth(10),
+                defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                children: [
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.075,
+                        child: Text("Poluentes", textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.bold),)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.075,
+                        child: Text("Concentração", textAlign: TextAlign.center,
+                        style: TextStyle(fontWeight: FontWeight.bold))),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("MP10", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.pm10}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("MP2.5", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.pm25}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("O3", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.o3}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("CO", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.co}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("NO2", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.no2}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                  TableRow(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("SO2", textAlign: TextAlign.center,)),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height*0.07,
+                        child: Text("${city.so2}", textAlign: TextAlign.center,)),
+                    ]
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          RaisedButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            color: Colors.cyan,
+            textColor: Colors.white,
+            onPressed: () => Navigator.pop(context),
+            child: Text("Voltar"),
+          ) 
+        ],
+      )
+    );
+  }
+
+  void dialogInfo(context){
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        title: Text("Informações:", textAlign: TextAlign.center,),
+        titleTextStyle: TextStyle(fontSize: 18, color: Colors.blue, fontWeight: FontWeight.bold),
+        content: Container(
+          height: MediaQuery.of(context).size.height*0.5,
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                height: MediaQuery.of(context).size.height*0.5,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text("Marcador verde informa que a qualidade do ar é ótima.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.green),
+                    ),
+                    Text("Marcador amarelo informa que a qualidade do ar é boa.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.yellow),
+                    ),
+                    Text("Marcador vermelho informa que a qualidade do ar é ruim.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    Text("Marcador violeta informa que a qualidade do ar é muito ruim.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.purple),
+                    ),
+                    Text("Marcador rosa informa que a qualidade do ar é muito perigosa.", 
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(color: Colors.pink),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          RaisedButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            color: Colors.cyan,
+            textColor: Colors.white,
+            onPressed: () => Navigator.pop(context),
+            child: Text("Voltar"),
+          ) 
         ],
       )
     );
