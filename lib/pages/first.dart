@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:surfaceair/repository/db.dart';
 
 class FirstPage extends StatefulWidget {
   @override
@@ -58,9 +59,12 @@ class _FirstPageState extends State<FirstPage> {
                       textColor: Colors.white,
                       child: Text("Submit"),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                      onPressed: (){
+                      onPressed: ()async{
                         if(_formKey.currentState.validate()){
-                          
+                          await sendPost(double.parse(aqi.text), double.parse(lat.text), 
+                          double.parse(long.text), nameCity.text, "${date.text} ${time.text}", 
+                          double.parse(co.text), double.parse(no2.text), double.parse(o3.text), 
+                          double.parse(pm10.text), double.parse(pm25.text), double.parse(so2.text));
                         }
                       },
                     ),
@@ -96,7 +100,7 @@ class _FirstPageState extends State<FirstPage> {
       decoration: InputDecoration(labelText: labelName,hintText: hint),
       keyboardType: keyboardType,
       validator: (value){
-        if(value.isEmpty) return 'Please enter some text';
+        if(value.isEmpty) return "Campo não pode ser vazio!";
       },
     );
   }
