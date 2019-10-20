@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:surfaceair/pages/fisrt.dart';
+import 'package:surfaceair/pages/first.dart';
 import 'package:surfaceair/pages/home.dart';
 
 class BottomNavigation extends StatefulWidget {
