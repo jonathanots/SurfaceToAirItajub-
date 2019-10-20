@@ -33,12 +33,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
       items: const <BottomNavigationBarItem>[
         
         BottomNavigationBarItem(
-          icon: Icon(Icons.add),
-          title: Text("First Page")
+          icon: Icon(Icons.perm_device_information),
+          title: Text("Formulário")
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.remove),
-          title: Text("Second Page")
+          icon: Icon(Icons.map),
+          title: Text("Mapa")
         ),
 
         

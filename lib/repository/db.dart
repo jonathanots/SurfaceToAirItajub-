@@ -4,16 +4,16 @@ Future sendPost(double aqi, double latitude, double longitude, String name, Stri
     double no2, double o3, double pm10, double pm25, double so2)async{
   String url = 'https://devportoedu.herokuapp.com/v1/graphql';
   HasuraConnect hasuraConnect = HasuraConnect(url);
-  /*String doc = """
+  String doc = """
     mutation {
-      addlocalizacoes( localizacoes :{aqi: $aqi, latitude: $latitude, longitude: $longitude, 
+      insert_localizacoes( localizacoes :{aqi: $aqi, latitude: $latitude, longitude: $longitude, 
       name: $name, date: $date, co: $co, no2: $no2, o3: $o3, pm10: $pm10, pm25: $pm25, so2: $so2}){
         {
           id
         }
       }
     }
-  """;*/
+  """;
 
   String docMutation = """
     mutation Add(\$aqi: double!, \$latitude: double!,\$longitude: double!, \$name: String!,
@@ -27,5 +27,18 @@ Future sendPost(double aqi, double latitude, double longitude, String name, Stri
     }
   """;
 
-  await hasuraConnect.mutation(docMutation);
+
+  /*String docQuery = """
+    query{
+      localizacoes{
+          id
+          name
+          latitude
+          longitude
+      }
+    }
+   """;*/
+
+  var r = await hasuraConnect.mutation(docMutation);
+  print(r);
 }
