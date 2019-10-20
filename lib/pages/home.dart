@@ -412,7 +412,7 @@ class _HomePageState extends State<HomePage> {
                         child: Text("${city.so2}", textAlign: TextAlign.center,)),
                     ]
                   ),
-                  TableRow(
+                  /*TableRow(
                     children: [
                       InkWell(
                         onTap: (){
@@ -428,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                         height: MediaQuery.of(context).size.height*0.07,
                         child: Text("${city.aqi}", textAlign: TextAlign.center,)),
                     ]
-                  ),
+                  ),*/
                 ],
               )
             ],
@@ -505,11 +505,51 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dialogPoluentes(context, String poluente){
+    String title = '';
+    String description = '';
+    if(poluente == "MP10"){
+      title = "Poluentes Inaláveis";
+      description = "";
+    }
+    else if(poluente == "MP2.5"){
+      title = "Poluentes Inaláveis";
+      description = "";
+
+    }
+    else if(poluente == "O3"){
+      title = "Gás Ozônio";
+      description = "Causa irritação nos olhos e redução da capacidade pulmonar,"
+      "agrava doenças respiratórias, diminui a resistência contra infecções, pode prejudicar"
+      " a fotosíntese de plantas, assim como causar danos à obras de arte e estruturas metálicas.";
+
+    }
+    else if(poluente == "CO"){
+      title = "Monóxido de Carbono";
+      description = "Dificulta o transporte de oxigênio na hemoglobina do sangue;"
+      " pode trazer como consequências: redução mental, prejuízo dos reflexos, paradas cerebrais"
+      " e pode levar à morte.";
+    }
+    else if(poluente == "NO2"){
+      title = "Dióxido de Nitrogênio";
+      description = "Irritação na mucose do nariz, danos severos ao pulmão e pode gerar a formação"
+      " de chuvas ácidas.";
+
+    }
+    else if(poluente == "SO2"){
+      title = "Dióxido de Enxofre";
+      description = "Suas consequências são derivadas da utilização de combustíveis fósseis"
+      ", pode causar desconforto na respiração e agramento de problemas cardiovasculares. "
+      "Além disso pode causar a deterioração de materiais, acidificação de corpos de água e "
+      "destruição de florestas";
+
+    }
+
+
     showDialog(
       context: context,
       child: AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text("Informações:", textAlign: TextAlign.center,),
+        title: Text("Informações sobre $title:", textAlign: TextAlign.center,),
         titleTextStyle: TextStyle(fontSize: 18, color: Colors.blue, fontWeight: FontWeight.bold),
         content: Container(
           height: MediaQuery.of(context).size.height*0.5,
@@ -522,25 +562,9 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Text("Marcador verde informa que a qualidade do ar é ótima.", 
+                    Text(description, 
                       textAlign: TextAlign.justify,
                       style: TextStyle(color: Colors.green),
-                    ),
-                    Text("Marcador amarelo informa que a qualidade do ar é boa.", 
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.yellow),
-                    ),
-                    Text("Marcador vermelho informa que a qualidade do ar é ruim.", 
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    Text("Marcador violeta informa que a qualidade do ar é muito ruim.", 
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.purple),
-                    ),
-                    Text("Marcador rosa informa que a qualidade do ar é muito perigosa.", 
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(color: Colors.pink),
                     ),
                   ],
                 ),
